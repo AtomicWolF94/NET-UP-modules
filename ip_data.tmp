@@ -10,6 +10,9 @@ SIMPLE_TIME=$(TZ='America/Los_Angeles' date '+%Y-%m-%d')
 IP_DIR="$MODULEDIR/IP_DATA"
 IP_LOGFILE="$IP_DIR/IP_DATA_$SIMPLE_TIME.txt"
 
+ISP=$(curl -s https://www.whoismyisp.org | grep -oP -m1 '(?<=isp">).*(?=</p)')
+mod_good "Your ISP is: $ISP"
+
 EXTIP=$(curl -4 -s ifconfig.co)
 mod_good "Your External IP address: $EXTIP"
 
@@ -30,5 +33,3 @@ echo -e "" >> $IP_LOGFILE
 echo -e "External IP: $EXTIP" >> $IP_LOGFILE
 echo -e "" >> $IP_LOGFILE
 echo -e "Internal IP: $INTIP" >> $IP_LOGFILE
-
-
